@@ -22,16 +22,6 @@ class ActionFacilitySearch(Action):
     def name(self) -> Text:
         return "action_facility_search"
 
-    def run(self, dispatcher: CollectingDispatcher,
-            tracker: Tracker,
-            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
-        facility = tracker.get_slot("facility_type")
-        address = "Karuna Hospital, LIC Colony Road, Jeevan Bima Nagar, near Bhagwati Hospital, Borivali West, " \
-                  "Mumbai, Maharashtra 400103 "
-        link = "https://www.practo.com/mumbai/hospital/karuna-hospital-borivali-west-1/doctors"
-        dispatcher.utter_message("Here is the address of the {}:\n{} \n Link: {}".format(facility, address, link))
-
-        return [SlotSet("address", address), SlotSet("link", link)]
 
 
 class ActionFestival(Action):

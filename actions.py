@@ -4,9 +4,6 @@
 # See this guide on how to implement these action:
 # https://rasa.com/docs/rasa/core/actions/#custom-actions/
 
-
-# This is a simple example for a custom action which utters "Hello World!"
-
 from typing import Any, Text, Dict, List
 
 from rasa_sdk import Action, Tracker
@@ -22,8 +19,19 @@ class ActionFacilitySearch(Action):
     def name(self) -> Text:
         return "action_facility_search"
 
+# Function to return address of the facility
+def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        facility = tracker.get_slot("facility_type")
+        address = "Karuna Hospital, LIC Colony Road, Jeevan Bima Nagar, near Bhagwati Hospital, Borivali West, " \
+                  "Mumbai, Maharashtra 400103 "
+        link = "https://www.practo.com/mumbai/hospital/karuna-hospital-borivali-west-1/doctors"
+        dispatcher.utter_message("Here is the address of the {}:\n{} \n Link: {}".format(facility, address, link))
 
+        return [SlotSet("address", address), SlotSet("link", link)]
 
+# Function to return a greeting message
 class ActionFestival(Action):
 
     def name(self) -> Text:
